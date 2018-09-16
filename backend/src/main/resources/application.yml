@@ -1,0 +1,8 @@
+spring:
+  main:
+    show_banner: false
+    
+    
+logging:
+  level:
+    root: ${LOGGING_LEVEL_R OOT:info}    
