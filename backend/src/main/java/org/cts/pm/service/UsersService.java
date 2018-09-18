@@ -3,16 +3,17 @@
  */
 package org.cts.pm.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
+import org.cts.pm.entity.User;
 
 /**
  * @author {Amit Kumar chaudhary}
  *
  * {CTS}
  */
-public class UsersService extends BaseService{
-	
-	 private Logger logger = LoggerFactory.getLogger(this.getClass());
+public interface UsersService {
 
+	public List<User> getAllUsers();
+	
 }

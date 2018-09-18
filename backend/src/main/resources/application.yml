@@ -1,8 +1,16 @@
 spring:
-  main:
-    show_banner: false
-    
-    
+   output:
+      ansi:
+       enabled: DETECT     
+   
 logging:
+  file: ../logs/application-debug.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
   level:
-    root: ${LOGGING_LEVEL_R OOT:info}    
+    root: ERROR
+    org.springframework.web: ERROR
+    org.cts.pm: DEBUG
+    org.hibernate: ERROR   
+    
