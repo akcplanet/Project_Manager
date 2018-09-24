@@ -1,0 +1,8 @@
+
+  <p>Task List:</p>
+  <ul>
+    <li *ngFor="let pr of listTask | async">
+        {{pr.taskId}} - {{pr.task}}
+        {{pr.priority}}
+</li>
+  </ul>

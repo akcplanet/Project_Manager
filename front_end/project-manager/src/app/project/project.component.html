@@ -1,0 +1,8 @@
+
+  <p>Project List:</p>
+  <ul>
+    <li *ngFor="let pr of listProject | async">
+        {{pr.projectId}} - {{pr.project}}
+        {{pr.priority}}
+</li>
+  </ul>
