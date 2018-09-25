@@ -1,7 +1,9 @@
 export class Project {
   constructor(
-    id: string,
-    title: string,
-    body: string,
+    projectId: string,
+    project: string,
+    startDate: string,
+    endDate: string,
+    priority: 0,
   ) {}
 }

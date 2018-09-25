@@ -1,8 +1,85 @@
 
-  <p>Task List:</p>
-  <ul>
-    <li *ngFor="let pr of listTask | async">
-        {{pr.taskId}} - {{pr.task}}
-        {{pr.priority}}
-</li>
-  </ul>
+<!--  ********************************************************************************************************************************* -->
+
+<div class="modal-content">
+	<div class="row">
+		<div class="input-group col-md-5  mb-1 ">
+
+			<input type="text" class="form-control" [(ngModel)]="searchUser"
+				id="inlineFormInputGroupUsername2" placeholder="Search...">
+		</div>
+		<div class=" col-md-1 ">
+			<span type="text" class="form-control border-zero"><strong>Sort Task By:</strong></span>
+		</div>
+		<div class=" col-md-1 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortTask('startDate')">Start Date</span>
+		</div>
+		<div class=" col-md-1 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortTask('endDate')">End Date</span>
+		</div>
+		<div class=" col-md-2 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortTask('priority')">Priority</span>
+		</div>
+				<div class=" col-md-2 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortTask('status')">Completed</span>
+		</div>
+	</div>
+</div>
+
+  
+  <!--  ********************************************************************************************************************************* -->
+
+	<div
+		*ngFor="let taskL of listTask | category: searchUser | orderBy: {property: column, direction: direction}">
+<div class="modal-content">
+		<div class="row">
+			<div class="input-group col-md-9  mb-1 ">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1"><strong>Task:</strong></span>
+				</div>
+				<input type="text" class="form-control"
+					id="inlineFormInputGroupUsername2"
+					placeholder="{{taskL.task}}" readonly>
+			</div>
+			<div class=" col-md-2 mb-1 mr-sm-2 "> 
+				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6" 
+					(click)="onEditUser(taskL)">Edit</span>
+			</div>
+
+			<div class="input-group col-md-9  mb-1 ">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon2"><strong>Start Date:</strong></span>
+				</div>
+				<input type="text" class="form-control"
+					id="inlineFormInputGroupUsername2" placeholder="{{taskL.startDate}}"
+					readonly>
+			</div>
+			<div class="col-md-2 mb-1 mr-sm-2 ">
+				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6"
+					(click)="onDeleteUser(userL)">End Task</span>
+			</div>
+			<div class="input-group col-sm-9 mb-1 ">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon3"><strong>End Date:</strong></span>
+				</div>
+				<input type="text" class="form-control"
+					id="inlineFormInputGroupUsername2"
+					placeholder="{{taskL.endDate}}" readonly>
+			</div>
+						<div class="input-group col-sm-9 mb-1 ">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon3"><strong>Priority:</strong></span>
+				</div>
+				<input type="text" class="form-control"
+					id="inlineFormInputGroupUsername2"
+					placeholder="{{taskL.priority}}" readonly>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="margin-bottom: 10px"></div>
+  

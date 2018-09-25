@@ -1,55 +1,54 @@
 <div class="modal-content">
 
-		<div class="row">
-			<div class="input-group col-md-9  mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1"><strong>First
-							Name:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="firstName" placeholder="Enter First Name"  [(ngModel)]="userAdd.firstName" required #firstName="ngModel"> 
+	<div class="row">
+		<div class="input-group col-md-9  mb-1 ">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1"><strong>First
+						Name:</strong></span>
 			</div>
-		<div [hidden]="firstName.valid || firstName.pristine"
-     class="alert alert-danger">
-  First Name is required.
-</div>
-
-			<div class="input-group col-md-9  mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon2"><strong>Last
-							Name:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="lastName" placeholder="Enter Last Name"   [(ngModel)]="userAdd.lastName" required #lastName="ngModel">
-			</div>
-			
-				<div [hidden]="lastName.valid || lastName.pristine"
-     class="alert alert-danger">
-  Last Name is required.
-</div>
-
-			<div class="input-group col-sm-9 mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon3"><strong>Employee
-							Id:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="employeeId" placeholder="Enter Employee Id"  [(ngModel)]="userAdd.employeeId" required #employeeId="ngModel">
-					
-								<div [hidden]="employeeId.valid || employeeId.pristine"
-     class="alert alert-danger">
-  Employee Id is required.
-</div>
-					
-			</div>		
-				<div class=" col-md-3 mb-4 mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6 " (click)="onAddUser()">Add</span>
-			</div>
-			
-						<div class="col-md-4  mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-4" (click)="onUserReset()">Reset</span>
-			</div>
+			<input type="text" class="form-control" id="firstName"
+				placeholder="Enter First Name" [(ngModel)]="userAdd.firstName"
+				required #firstName="ngModel">
 		</div>
+		<div [hidden]="firstName.valid || firstName.pristine"
+			class="alert alert-danger">First Name is required.</div>
+
+		<div class="input-group col-md-9  mb-1 ">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon2"><strong>Last
+						Name:</strong></span>
+			</div>
+			<input type="text" class="form-control" id="lastName"
+				placeholder="Enter Last Name" [(ngModel)]="userAdd.lastName"
+				required #lastName="ngModel">
+		</div>
+
+		<div [hidden]="lastName.valid || lastName.pristine"
+			class="alert alert-danger">Last Name is required.</div>
+
+		<div class="input-group col-sm-9 mb-1 ">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon3"><strong>Employee
+						Id:</strong></span>
+			</div>
+			<input type="text" class="form-control" id="employeeId"
+				placeholder="Enter Employee Id" [(ngModel)]="userAdd.employeeId"
+				required #employeeId="ngModel">
+
+			<div [hidden]="employeeId.valid || employeeId.pristine"
+				class="alert alert-danger">Employee Id is required.</div>
+
+		</div>
+		<div class=" col-md-2 mb-4 mr-sm-2 row " style="margin-left: 300px">
+			<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6  "
+				(click)="onAddUser()">Add</span>
+		</div>
+
+		<div class="col-md-3 mb-4  mr-sm-2  row">
+			<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-4"
+				(click)="onUserReset()">Reset</span>
+		</div>
+	</div>
 
 </div>
 
@@ -59,31 +58,35 @@
 <!--  ********************************************************************************************************************************* -->
 
 <div class="modal-content">
-		<div class="row">
-			<div class="input-group col-md-5  mb-1 ">
-	
-				<input type="text" class="form-control" [(ngModel)]="searchUser" 
-					id="inlineFormInputGroupUsername2" placeholder="Search..."
-					>
-			</div>
-			<div class=" col-md-1 ">
-				<span type="text" class="form-control border-zero"><strong>Sort:</strong></span>
-			</div>
-			<div class=" col-md-1 mb-1 mr-sm-3 ">
-				<span type="button" class="btn btn-primary " (click)="onSortUser('firstName')">First Name</span>
-			</div>
-			<div class=" col-md-1 mb-1 mr-sm-3 ">
-				<span type="button" class="btn btn-primary " (click)="onSortUser('lastName')">Last Name</span>
-			</div>
-			<div class=" col-md-2 mb-1 mr-sm-3 ">
-				<span type="button" class="btn btn-primary " (click)="onSortUser('employeeId')">Id</span>
-			</div>
-			</div></div>
+	<div class="row">
+		<div class="input-group col-md-5  mb-1 ">
 
-	<!--  ********************************************************************************************************************************* -->
-	
- <div *ngFor="let userL of listUser | category: searchUser | orderBy: {property: column, direction: direction}"> 
-	<div class="modal-content">
+			<input type="text" class="form-control" [(ngModel)]="searchUser"
+				id="inlineFormInputGroupUsername2" placeholder="Search...">
+		</div>
+		<div class=" col-md-1 ">
+			<span type="text" class="form-control border-zero"><strong>Sort:</strong></span>
+		</div>
+		<div class=" col-md-1 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortUser('firstName')">First Name</span>
+		</div>
+		<div class=" col-md-1 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortUser('lastName')">Last Name</span>
+		</div>
+		<div class=" col-md-2 mb-1 mr-sm-3 ">
+			<span type="button" class="btn btn-primary "
+				(click)="onSortUser('employeeId')">Id</span>
+		</div>
+	</div>
+</div>
+
+<!--  ********************************************************************************************************************************* -->
+
+	<div
+		*ngFor="let userL of listUser | category: searchUser | orderBy: {property: column, direction: direction}">
+<div class="modal-content">
 		<div class="row">
 			<div class="input-group col-md-9  mb-1 ">
 				<div class="input-group-prepend">
@@ -91,11 +94,12 @@
 							Name:</strong></span>
 				</div>
 				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2" placeholder="{{userL.firstName}}"
-					readonly>
+					id="inlineFormInputGroupUsername2"
+					placeholder="{{userL.firstName}}" readonly>
 			</div>
 			<div class=" col-md-2 mb-1 mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6" (click)="onEditUser(userL)">Edit</span>
+				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6"
+					(click)="onEditUser(userL)">Edit</span>
 			</div>
 
 			<div class="input-group col-md-9  mb-1 ">
@@ -108,7 +112,8 @@
 					readonly>
 			</div>
 			<div class="col-md-2 mb-1 mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6" (click)="onDeleteUser(userL)">Delete</span>
+				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6"
+					(click)="onDeleteUser(userL)">Delete</span>
 			</div>
 			<div class="input-group col-sm-9 mb-1 ">
 				<div class="input-group-prepend">
@@ -116,12 +121,10 @@
 							Id:</strong></span>
 				</div>
 				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2" placeholder="{{userL.employeeId}}"
-					readonly>
+					id="inlineFormInputGroupUsername2"
+					placeholder="{{userL.employeeId}}" readonly>
 			</div>
 		</div>
 	</div>
-
-
 </div>
-
+<div style="margin-bottom: 10px"></div>

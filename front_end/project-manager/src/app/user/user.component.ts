@@ -28,6 +28,7 @@ export class UserComponent implements OnInit {
     this.userService.getUsers()
       .subscribe(data => {
         this.listUser = data;
+            console.log(data);
       });
 
 
@@ -52,14 +53,15 @@ export class UserComponent implements OnInit {
       this.userService.createUser(this.userAdd)
         .subscribe(data => {
           this.listUser.push(this.userAdd);
+           this.userAdd ={};
         });
     } else {
       this.userService.updateUser(this.userAdd)
         .subscribe(data => {
           this.listUser.push(this.userAdd);
+           this.userAdd ={};
         });
     }
-      this.userAdd ={};
   };
 
   onUserReset(): void {
