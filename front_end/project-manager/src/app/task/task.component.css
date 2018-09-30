@@ -32,4 +32,11 @@
 .border-zero {
     border-radius: 0px;
 }
+.input-group-addon{
+	background-color: white !important ; 
+}
 
+.short-div {
+  height:60px;
+  margin-bottom: 10px;
+}

@@ -105,4 +105,12 @@ export class TaskComponent implements OnInit {
       });
   }
   
+  
+    onDateFlagChanged(input){
+    console.log(input);
+    if(!input){
+    this.taskAdd.startDate= null;
+   this.taskAdd.endDates= null;
+    }
+  }
 }

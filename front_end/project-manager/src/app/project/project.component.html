@@ -80,7 +80,7 @@
 <div class="modal-content col-sm-12" >	
 
    <div class="col-sm-8">
-    <div class="col-sm-12" style="margin-left: -30px;">
+    <div class="col-sm-12" style="margin-left: -30px; padding-top:5px ;  padding-bottom:5px ;">
 			<div class="input-group input-group-sm " >
 				<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon1" >Project:</span>
 				<input type="text" class="form-control"	id="inlineFormInputGroupUsername2"	style="border-radius: 0px !important; " placeholder="{{projectL.project}}" readonly>
@@ -98,7 +98,7 @@
 			</div></div>
 	
 	
-	 <div class="col-sm-6" style="margin-left: -30px;">
+	 <div class="col-sm-6" style="margin-left: -30px;  padding-bottom:5px ;">
 			<div class="input-group input-group-sm">			
 					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon2">Start Date:</span>
 				   <input type="text" class="form-control" id="inlineFormInputGroupUsername3"  style="border-radius: 0px !important; " placeholder="{{projectL.startDate}}" readonly>
@@ -112,7 +112,7 @@
 			
 	</div>
 
-			<div class="col-sm-2"  style="margin-left: -80px;">
+			<div class="col-sm-2"  style="margin-left: -80px; padding-top:5px ;">
 			 <div class="col-sm-12">
 			<div class="input-group input-group-sm ">
 					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Priority:</span>
@@ -123,10 +123,11 @@
 			</div></div>
 			</div>
 			
-						<div class="col-sm-2" style="margin-left: -30px;">
+						<div class="col-sm-2" style="margin-left: -30px; padding-top:10px ;">
 			 <div class="col-sm-12" >
 		 <div class="col-sm-12"><span type="button" class="btn btn-primary btn-sm "  style=" width:70%;" (click)="onEditProject(projectL)">Update</span></div>
 				</div>
+				<div class="row" style="padding-bottom:10px ;"></div>
 			 <div class="col-sm-12" >
 			<div class="col-sm-12"><span type="button" class="btn btn-primary btn-sm" style=" width:70%;"	(click)="onDeleteProject(projectL)">Suspend</span></div>
 			
