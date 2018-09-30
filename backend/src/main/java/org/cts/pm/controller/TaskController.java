@@ -5,8 +5,6 @@ package org.cts.pm.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.cts.pm.dto.TaskDTO;
 import org.cts.pm.entity.ParentTask;
 import org.cts.pm.entity.Task;
@@ -45,37 +43,42 @@ public class TaskController {
 
 	@GetMapping
 	public  @ResponseBody  ResponseEntity<List<Task>> getAllTasks() {
+		logger.info("Logging in @RestController getAllTasks method");
 		List<Task> tasks = taskService.getAllTasks();
 		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public  @ResponseBody  ResponseEntity<Task> getTaskById(@PathVariable("id") String taskId) {
+		logger.info("Logging in @RestController getTaskById  method for taskId: " + taskId);
 		Task task = taskService.getTaskById(taskId);
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 
 	@PostMapping("/")
 	public  @ResponseBody  ResponseEntity<?> createProject(@RequestBody TaskDTO task) {
+		logger.info("Logging in @RestController createProject  method for userId: " + task.getUserId());
 		taskService.addTask(task);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/")
 	public  @ResponseBody  ResponseEntity<?> updateTask(@RequestBody TaskDTO task) {
+		logger.info("Logging in @RestController updateTask  method for task: " + task.getUserId());
 		taskService.updateTask(task);
-		//return new ResponseEntity<TaskDTO>(task, HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
 	public  @ResponseBody  ResponseEntity<?> deleteTask(@PathVariable(value = "id") String taskId) {
+		logger.info("Logging in @RestController deleteTask  method for taskId: " + taskId);
 		taskService.deleteTask(taskId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("/parent")
 	public  @ResponseBody  ResponseEntity<List<ParentTask>> getAllParentTasks() {
+		logger.info("Logging in @RestController getAllParentTasks  method ");
 		List<ParentTask> ptasks = taskService.getAllParentTasks();
 		return new ResponseEntity<List<ParentTask>>(ptasks, HttpStatus.OK);
 	}

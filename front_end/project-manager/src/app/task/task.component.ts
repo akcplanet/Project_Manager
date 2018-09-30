@@ -62,6 +62,27 @@ export class TaskComponent implements OnInit {
     this.parentTaskList = [];
   }
 
+  
+  getAllUserSearch() {
+    this.userService.getUsers()
+      .subscribe(data => {
+        this.getUserProject = data;
+      }, error => this.error);
+  }
+
+  getAllProjectSearch() {
+    this.projectService.getProjects()
+      .subscribe(data => {
+        this.getAllProject = data;
+      }, error => this.error);
+  }
+
+  getAllParentTasks() {
+    this.taskService.getParentTasks()
+      .subscribe(data => {
+        this.parentTaskList = data;
+      }, error => this.error);
+  }
 
   onDateFlagChanged(input) {
     if (!input) {

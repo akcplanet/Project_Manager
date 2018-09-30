@@ -159,6 +159,19 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+	public User() {
+		super();
+	}
+
+	public User(String firstName, String lastName, String employeeId) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.employeeId = employeeId;
+	}
+	
+	
 	
 	
 }

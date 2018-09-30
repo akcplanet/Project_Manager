@@ -15,6 +15,8 @@ export class ProjectComponent implements OnInit {
 
   listProject: any = [];
   projectAddcheckbox : boolean =false;
+  
+  searchProject: string;
 
   userAddmanager: string;
   projectAdd;

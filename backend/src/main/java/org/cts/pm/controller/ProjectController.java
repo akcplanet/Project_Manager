@@ -5,8 +5,6 @@ package org.cts.pm.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.cts.pm.entity.Project;
 import org.cts.pm.service.ProjectService;
 import org.slf4j.Logger;
@@ -32,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/project")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -41,31 +39,38 @@ public class ProjectController {
 	ProjectService projectService;
 
 	@GetMapping
-	public  @ResponseBody  ResponseEntity<List<Project>> getAllProjects() {
+	public @ResponseBody ResponseEntity<List<Project>> getAllProjects() {
+		logger.info("Logging in @RestController getAllProjects method");
 		List<Project> projects = projectService.getAllProjects();
 		return new ResponseEntity<List<Project>>(projects, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public  @ResponseBody  ResponseEntity<Project> getProjectById(@PathVariable("id") String projectId) {
+	public @ResponseBody ResponseEntity<Project> getProjectById(@PathVariable("id") String projectId) {
+		logger.info("Logging in @RestController getProjectById method Projectid: " + projectId);
 		Project project = projectService.getProjectById(projectId);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
 	@PostMapping("/{id}")
-	public  @ResponseBody  ResponseEntity<?> createProject(@PathVariable("id") String userId , @RequestBody Project project) {
+	public @ResponseBody ResponseEntity<?> createProject(@PathVariable("id") String userId,
+			@RequestBody Project project) {
+		logger.info("Logging in @RestController createProject  method for userId: " + userId);
 		projectService.addProject(project, userId);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public  @ResponseBody  ResponseEntity<Project> updateProject(@PathVariable("id") String userId, @RequestBody Project project) {
-		projectService.updateProject(project , userId);
+	public @ResponseBody ResponseEntity<Project> updateProject(@PathVariable("id") String userId,
+			@RequestBody Project project) {
+		logger.info("Logging in @RestController updateProject  method for userId: " + userId);
+		projectService.updateProject(project, userId);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public  @ResponseBody  ResponseEntity<?> deleteProject(@PathVariable(value = "id") String projectId) {
+	public @ResponseBody ResponseEntity<?> deleteProject(@PathVariable(value = "id") String projectId) {
+		logger.info("Logging in @RestController deleteProject  method for projectId: " + projectId);
 		projectService.deleteProject(projectId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}

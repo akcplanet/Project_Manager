@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   direction: number;
 
   error: any;
+  searchUser: string;
 
   records: Array<User>;
   isDesc: boolean = false;

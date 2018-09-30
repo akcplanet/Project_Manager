@@ -25,24 +25,24 @@ export class ProjectService {
   }
 
   getProjects() {
-    return this.httpClient.get<Project[]>(this.baseUrl + '/project');
+    return this.httpClient.get<Project[]>(this.baseUrl + 'project');
   }
 
   getProjectById(id: number) {
-    return this.httpClient.get<Project>(this.baseUrl + '/project/' + id);
+    return this.httpClient.get<Project>(this.baseUrl + 'project/' + id);
   }
 
   createProject(user: Project, projectAddmanager: string) {
-    return this.httpClient.post(this.baseUrl+ '/project/'+ projectAddmanager, user, this.httpOptions);
+    return this.httpClient.post(this.baseUrl+ 'project/'+ projectAddmanager, user, this.httpOptions);
   }
 
   updateProject(user: Project, projectAddmanager: string) {
-    return this.httpClient.put(this.baseUrl+ '/project/'+ projectAddmanager, user, this.httpOptions)
+    return this.httpClient.put(this.baseUrl+ 'project/'+ projectAddmanager, user, this.httpOptions)
 
   }
 
   deleteProject(id: string) {
-    return this.httpClient.delete(this.baseUrl + '/project/' + id, this.httpOptions);
+    return this.httpClient.delete(this.baseUrl + 'project/' + id, this.httpOptions);
   }
 
 }

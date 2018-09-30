@@ -15,6 +15,8 @@ export class ViewTaskComponent implements OnInit {
 
   parentTaskList: any = [];
   listTask: any = [];
+  
+  searchTask: string;
 
   taskAdd;
   taskDTO;
@@ -60,26 +62,6 @@ export class ViewTaskComponent implements OnInit {
     this.direction = this.isDesc ? 1 : -1;
   }
 
-  getAllUserSearch() {
-    this.userService.getUsers()
-      .subscribe(data => {
-        this.getUserProject = data;
-      }, error => this.error);
-  }
-
-  getAllProjectSearch() {
-    this.projectService.getProjects()
-      .subscribe(data => {
-        this.getAllProject = data;
-      }, error => this.error);
-  }
-
-  getAllParentTasks() {
-    this.taskService.getParentTasks()
-      .subscribe(data => {
-        this.parentTaskList = data;
-      }, error => this.error);
-  }
 
   onDateFlagChanged(input) {
     if (!input) {
