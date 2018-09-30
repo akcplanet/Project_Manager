@@ -1,39 +1,10 @@
-/* body {
-    background: brown;
-    color: #fff;
-    text-align: center;
-    font-family: 'Montserrat';
-    display: grid;
-    align-items: center;
-    font-size: 3em;
-    padding: 2em;
-}
- */
 
-.modal-content{
-	border-radius: 0.0rem;
-	border: none;
-	border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
 }
 
-.form-control{
-	border-radius: 0.0rem;
-}
-
-.modal-dialog{
-	margin: 0.0rem ;
-}
-.row{
-	margin-top: 5px;
-}
-
-
-.input-group-text{
-	border: 0px solid #ced4da;
-	border-radius: 0.0rem;
-	min-width: 130px;
-	background-color: white; 
-}
 .border-zero{
 	border: none;
 }
@@ -54,5 +25,20 @@
     margin-bottom: 0rem;
 }
 
+.btn-sm {
+    border-radius: 0px;
+}
 
+
+.border-zero {
+    border-radius: 0px;
+}
+
+.short-div {
+  height:60px;
+}
+
+.input-group-addon{
+	background-color: white !important ; 
+}
 

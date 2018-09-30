@@ -5,11 +5,17 @@ package org.cts.pm.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +24,9 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -28,25 +37,59 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "task")
-@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE)
-public class Task extends BaseModel<String> implements Serializable {
+@JsonIgnoreProperties(value = { "users", "projectId" , "parentTaskId" }, allowGetters = true)
+public class Task implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "parent_id")
-	private String parentId;
+	private String taskId;
 
-	@Column(name = "project_id")
-	private String projectId;
+	private Set<User> users = new HashSet<User>(0);
 
-	@NotBlank
+	private Project projectId;
+
+	private ParentTask parentTaskId;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "parent_id" , nullable = true)
+	@JsonBackReference("parentObj")
+	public ParentTask getParentTaskId() {
+		return parentTaskId;
+	}
+
+	public void setParentTaskId(ParentTask parentTaskId) {
+		this.parentTaskId = parentTaskId;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_id" , nullable = true)
+	@JsonBackReference("projectObj")
+	public Project getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Project projectId) {
+		this.projectId = projectId;
+	}
+
+	@OneToMany(mappedBy = "taskId")
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
 	@Column(name = "task")
 	private String task;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "start_date")
 	private Date startDate;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "end_date")
 	private Date endDate;
@@ -61,29 +104,12 @@ public class Task extends BaseModel<String> implements Serializable {
 	@Column(name = "task_id")
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@JsonProperty("id")
-	public String getPrimaryKey() {
-		return this.primaryKey;
+	public String getTaskId() {
+		return taskId;
 	}
 
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
-
-	public String getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 
 	public String getTask() {
@@ -110,6 +136,58 @@ public class Task extends BaseModel<String> implements Serializable {
 		this.endDate = endDate;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + priority;
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((task == null) ? 0 : task.hashCode());
+		result = prime * result + ((taskId == null) ? 0 : taskId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Task other = (Task) obj;
+		if (endDate == null) {
+			if (other.endDate != null)
+				return false;
+		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (priority != other.priority)
+			return false;
+		if (startDate == null) {
+			if (other.startDate != null)
+				return false;
+		} else if (!startDate.equals(other.startDate))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (task == null) {
+			if (other.task != null)
+				return false;
+		} else if (!task.equals(other.task))
+			return false;
+		if (taskId == null) {
+			if (other.taskId != null)
+				return false;
+		} else if (!taskId.equals(other.taskId))
+			return false;
+		return true;
+	}
+
 	public int getPriority() {
 		return priority;
 	}
@@ -125,5 +203,7 @@ public class Task extends BaseModel<String> implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
 
 }

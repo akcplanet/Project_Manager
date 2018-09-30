@@ -5,11 +5,17 @@ package org.cts.pm.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +23,11 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * @author {Amit Kumar chaudhary}
@@ -26,18 +36,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Entity
 @Table(name = "project")
-@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE)
-public class Project extends BaseModel<String> implements Serializable {
+@JsonIgnoreProperties(value = { "users", "task" }, allowGetters = true)
+public class Project implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private String projectId;
 
 	@Column(name = "project")
 	private String project;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Column(name = "end_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
@@ -45,17 +59,40 @@ public class Project extends BaseModel<String> implements Serializable {
 	@Column(name = "priority")
 	private int priority;
 
-	@Id
-	@Column(name = "project_id")
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@JsonProperty("id")
-	public String getPrimaryKey() {
-		return this.primaryKey;
+	// private Set<User user ;
+
+	private Set<User> users = new HashSet<User>(0);
+
+	private Set<Task> task = new HashSet<Task>(0);
+
+	@OneToMany(mappedBy = "projectId")
+	public Set<Task> getTask() {
+		return task;
 	}
 
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
+	public void setTask(Set<Task> task) {
+		this.task = task;
+	}
+
+	@OneToMany(mappedBy = "projectId")
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	@Id
+	@Column(name = "project_id", unique = true, nullable = false)
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getProject() {
@@ -89,5 +126,24 @@ public class Project extends BaseModel<String> implements Serializable {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+
+
+	
+
+	public Project(String project, Date startDate, Date endDate, int priority) {
+		super();
+		this.project = project;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.priority = priority;
+	}
+
+	public Project() {
+		super();
+	}
+	
+	
+	
+	
 
 }

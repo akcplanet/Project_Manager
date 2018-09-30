@@ -1,215 +1,146 @@
+<div class="modal-content col-sm-12">
 
-<div class="modal-content">
-
-	<div class="row">
-		<div class="input-group col-md-9  mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon1"><strong>Project:</strong></span>
-			</div>
-			<input type="text" class="form-control" id="projectName"
-				placeholder="Enter First Name" [(ngModel)]="projectAdd.project"
-				required #firstName="ngModel">
-		</div>
-		<div [hidden]="firstName.valid || firstName.pristine"
-			class="alert alert-danger">Project is required.</div>
-			
-			
-					<div class="input-group col-md-9  mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon1"><strong>Set Start and End Date:</strong></span>
-			</div>
-			<input type="checkbox" class="form-control" id="projectName"
-				[(ngModel)]="projectAdd.startDate"
-				required #firstName="ngModel">
-		</div>
-	
-		<div class="input-group col-md-9  mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon1"><strong>Start Date:</strong></span>
-			</div>
-			<input type="date" class="form-control" id="projectName"
-				[(ngModel)]="projectAdd.startDate"
-				required #firstName="ngModel">
-		</div>
+<form class="form-horizontal container" role="form"  style="margin-top: 10px; margin-left: -100px; "  #f="ngForm" novalidate>
+		<div class="input-group col-sm-12">
+				<label  id="basic-addon1" class="col-sm-2 control-label" >Project:</label>
+		    <div class="col-sm-8">
+			<input type="text" class="form-control"  id="firstName"  placeholder="Enter Project Name..." name="project" [(ngModel)]="projectAdd.project" required >
+		</div></div>
 		
-				<div class="input-group col-md-9  mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon1"><strong>End Date:</strong></span>
+			<div class="input-group col-sm-12"  style="margin-top: 3px; " >	
+				
+		<label  id="basic-addon1" class="col-sm-3 control-label col-sm-offset-1" ><input type="checkbox"  id="pstartDate2" name="projectAddcheckbox"  (ngModelChange)="onDateFlagChanged(!projectAddcheckbox)"  [(ngModel)]="projectAddcheckbox" required >Set Start and End Date</label>
+				 <div class="col-sm-2">
+			<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  class="textbox-n" id="projectStartDate" [disabled]="!projectAddcheckbox" name="startDate"	[(ngModel)]="projectAdd.startDate"  placeholder="Start Date" >
 			</div>
-			<input type="date" class="form-control" id="projectName"
-				 [(ngModel)]="projectAdd.endDate"
-				required #firstName="ngModel">
+				 <div class="col-sm-2">
+		<input type="text"  onfocus="(this.type='date')"  onblur="(this.type='text')" class="textbox-n" id="projectEndDate" placeholder="End Date"  [disabled]="!projectAddcheckbox" name="endDate" [(ngModel)]="projectAdd.endDate"   required >
 		</div>
+		</div>
+			
+
+		
+		<div class="input-group col-sm-12">
+				<label  id="basic-addon1" class="col-sm-2 control-label" >Priority:</label>
+				 <div class="col-sm-8">
+				  
+			<input type="range" class="form-control" id="priority"  min="0" max="30" step="1" value="15" name="priority"   [(ngModel)]="projectAdd.priority" oninput="outpriority.value = priority.value" required>
+			<output name="outpriorityName" id="outpriority">15</output>
+			
 	
-
-		<div class="input-group col-md-9  mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon2"><strong>Priority:</strong></span>
-			</div>
 			
 			
-			<input type="range" class="form-control" id="priority" min="0" max="20" step="1"
-				 [(ngModel)]="projectAdd.priority"
-				required #lastName="ngModel">
+		</div></div>
+		
+
+	   <div class="input-group col-sm-12">
+				<label  id="basic-addon1" class="col-sm-2 control-label" >Manager:</label>
+				 <div class="col-sm-6">	  
+				  <select class="form-control" [(ngModel)]="projectAddmanager"  name="allUserProject">				  
+				 <option [ngValue]="undefined" disabled  selected>Please click on search button to view list of mangers .. </option>
+   <option [value]="user.id" *ngFor="let user of allUserProject">{{user.firstName+ ' '+ user.lastName}}</option>
+ </select></div>
+ 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="onAllUserSearch()">Search</span></div>
+ </div>
+			
+		<div class="row" style="margin-bottom: 10px;"></div>
+		<div class="col-sm-10 btn-toolbar  " style="justify-content: center; display: flex;">
+			<span type="button" class="btn btn-primary border-zero" (click)="onAddProject()">Add</span>
+			<span type="button" class="btn btn-primary border-zero"(click)="onProjectReset()">Reset</span>
 		</div>
-
-		<div [hidden]="lastName.valid || lastName.pristine"
-			class="alert alert-danger">Last Name is required.</div>
-
-		<div class="input-group col-sm-9 mb-1 ">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon3"><strong>Manager:</strong></span>
-			</div>
-			<input type="text" class="form-control" id="employeeId"
-				placeholder="Enter Employee Id" [(ngModel)]="projectAdd.manager"
-				required #employeeId="ngModel">
-
-			<div [hidden]="manager.valid || manager.pristine"
-				class="alert alert-danger">Employee Id is required.</div>
-
-		</div>
-		<div class=" col-md-2 mb-4 mr-sm-2 row " style="margin-left: 300px">
-			<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6  "
-				(click)="onAddProject()">Add</span>
-		</div>
-
-		<div class="col-md-3 mb-4  mr-sm-2  row">
-			<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-4"
-				(click)="onProjectReset()">Reset</span>
-		</div>
-	</div>
-
+		<div class="row" style="margin-bottom: 10px;"></div>
+		</form>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="row" style="margin-bottom: 10px;"></div>
 
 
 <!--  ********************************************************************************************************************************* -->
 
-<div class="modal-content">
-	<div class="row">
-		<div class="input-group col-md-5  mb-1 ">
 
-			<input type="text" class="form-control" [(ngModel)]="searchProject"
-				id="inlineFormInputGroupUsername2" placeholder="Search...">
-		</div>
-		<div class=" col-md-1 ">
-			<span type="text" class="form-control border-zero"><strong>Sort:</strong></span>
-		</div>
-		<div class=" col-md-1 mb-1 mr-sm-3 ">
-			<span type="button" class="btn btn-primary "
-				(click)="onSortProject('startDate')">Start Date</span>
-		</div>
-		<div class=" col-md-1 mb-1 mr-sm-3 ">
-			<span type="button" class="btn btn-primary "
-				(click)="onSortProject('c')">End Date</span>
-		</div>
-		<div class=" col-md-2 mb-1 mr-sm-3 ">
-			<span type="button" class="btn btn-primary "
-				(click)="onSortProject('priority')">Priority</span>
-		</div>
-				<div class=" col-md-2 mb-1 mr-sm-3 ">
-			<span type="button" class="btn btn-primary "
-				(click)="onSortProject('priority')">Completed</span>
-		</div>
-	</div>
+  <div class="modal-content col-sm-12">
+	 <div class="col-sm-5" style="margin-left: -30px;">
+		<div >
+			<input type="text" class="form-control"  style="border-radius: 0px !important;"  [(ngModel)]="searchProject" id="inlineFormInputGroupUsername2" placeholder="Search...">
+		</div></div>
+	  <div class="col-sm-1" type="text" ><strong>Sort: </strong></div>
+	<div class="col-sm-6">
+	      <div class="btn-toolbar">
+		<span type="button" class="btn btn-primary btn-sm"(click)="onSortProject('startDate')">Start Date</span>
+		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortProject('startDate')">End Date</span>
+		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortProject('priority')">Priority</span>
+	<span type="button" class="btn btn-primary btn-sm"	(click)="onSortProject('priority')">Completed</span></div></div>
 </div>
   
+  
   <!--  ********************************************************************************************************************************* -->
+  
+  
+  <div *ngFor="let projectL of listProject | category: searchUser | orderBy: {property: column, direction: direction}">
+<div class="modal-content col-sm-12" >	
 
-	<div
-		*ngFor="let projectL of listProject | category: searchUser | orderBy: {property: column, direction: direction}">
-<div class="modal-content">
-		<div class="row">
-			<div class="input-group col-md-9  mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1"><strong>Project:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2"
-					placeholder="{{projectL.project}}" readonly>
-			</div>
-			<div class=" col-md-2 mb-1 mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6"
-					(click)="onEditProject(projectL)">Update</span>
-			</div>
+   <div class="col-sm-8">
+    <div class="col-sm-12" style="margin-left: -30px;">
+			<div class="input-group input-group-sm " >
+				<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon1" >Project:</span>
+				<input type="text" class="form-control"	id="inlineFormInputGroupUsername2"	style="border-radius: 0px !important; " placeholder="{{projectL.project}}" readonly>
+			</div></div>		
+	     
+			 <div class="col-sm-6" style="margin-left: -30px;">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon3">No of Task:</span>
+				<input type="text" class="form-control"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important; " placeholder="{{projectL.task.length}}" readonly>	
+			</div></div>		
+			 <div class="col-sm-6" >
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon3">Completed:</span>
+				<input type="text" class="form-control"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important; " placeholder="{{projectL.task.length}}" readonly>	
+			</div></div>
+	
+	
+	 <div class="col-sm-6" style="margin-left: -30px;">
+			<div class="input-group input-group-sm">			
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon2">Start Date:</span>
+				   <input type="text" class="form-control" id="inlineFormInputGroupUsername3"  style="border-radius: 0px !important; " placeholder="{{projectL.startDate}}" readonly>
+			</div></div>
+		
+			 <div class="col-sm-6" >
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon3">End Date:</span>
+				<input type="text" class="form-control"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important; " placeholder="{{projectL.endDate}}" readonly>	
+			</div></div>	
+			
+	</div>
 
-			<div class="input-group col-md-9  mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon2"><strong>Start Date:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2" placeholder="{{projectL.startDate}}"
-					readonly>
-			</div>
-			<div class="col-md-2 mb-1 mr-sm-2 ">
-				<span type="submit" class="btn btn-primary mb-1 mr-sm-2 col-sm-6"
-					(click)="onDeleteProject(projectL)">Suspend</span>
-			</div>
-			<div class="input-group col-sm-9 mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon3"><strong>End Date:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2"
-					placeholder="{{projectL.endDate}}" readonly>
-			</div>
-						<div class="input-group col-sm-9 mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon3"><strong>Priority:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2"
-					placeholder="{{projectL.priority}}" readonly>
+			<div class="col-sm-2"  style="margin-left: -80px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Priority:</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important ; text-align: center; font-size: 38px; font-weight: bold;" placeholder="{{projectL.priority}}" readonly>	
+			</div></div>
 			</div>
 			
-					<div class="input-group col-sm-9 mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon3"><strong>No of Task:</strong></span>
+						<div class="col-sm-2" style="margin-left: -30px;">
+			 <div class="col-sm-12" >
+		 <div class="col-sm-12"><span type="button" class="btn btn-primary btn-sm "  style=" width:70%;" (click)="onEditProject(projectL)">Update</span></div>
 				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2"
-					placeholder="{{projectL.task.length}}" readonly>
+			 <div class="col-sm-12" >
+			<div class="col-sm-12"><span type="button" class="btn btn-primary btn-sm" style=" width:70%;"	(click)="onDeleteProject(projectL)">Suspend</span></div>
+			
+			</div>
 			</div>
 			
-						<div class="input-group col-sm-9 mb-1 ">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon3"><strong>Completed:</strong></span>
-				</div>
-				<input type="text" class="form-control"
-					id="inlineFormInputGroupUsername2"
-					placeholder="{{projectL.task.length}}" readonly>
-			</div>
+			
+			
+			
 		</div>
 	</div>
-</div>
-<div style="margin-bottom: 10px"></div>
+
+  
+  
+  
+  
   

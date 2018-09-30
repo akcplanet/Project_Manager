@@ -32,12 +32,12 @@ export class ProjectService {
     return this.httpClient.get<Project>(this.baseUrl + '/project/' + id);
   }
 
-  createProject(user: Project) {
-    return this.httpClient.post(this.baseUrl+ '/project', user, this.httpOptions);
+  createProject(user: Project, projectAddmanager: string) {
+    return this.httpClient.post(this.baseUrl+ '/project/'+ projectAddmanager, user, this.httpOptions);
   }
 
-  updateProject(user: Project) {
-    return this.httpClient.put(this.baseUrl+ '/project', user, this.httpOptions)
+  updateProject(user: Project, projectAddmanager: string) {
+    return this.httpClient.put(this.baseUrl+ '/project/'+ projectAddmanager, user, this.httpOptions)
 
   }
 

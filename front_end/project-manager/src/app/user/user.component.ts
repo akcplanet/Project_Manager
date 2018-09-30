@@ -11,12 +11,10 @@ import {User} from '../model/user';
 export class UserComponent implements OnInit {
 
   listUser: any = [];
-
-  userAdd;
-  
+  userAdd;  
   direction: number;
-  
-   records: Array<User>;
+ 
+  records: Array<User>;
   isDesc: boolean = false;
   column: string = 'CategoryName';
   
@@ -30,8 +28,6 @@ export class UserComponent implements OnInit {
         this.listUser = data;
             console.log(data);
       });
-
-
   }
 
   onDeleteUser(user: User): void {
@@ -56,7 +52,7 @@ export class UserComponent implements OnInit {
            this.userAdd ={};
         });
     } else {
-      this.userService.updateUser(this.userAdd)
+      this.userService.createUser(this.userAdd)
         .subscribe(data => {
           this.listUser.push(this.userAdd);
            this.userAdd ={};

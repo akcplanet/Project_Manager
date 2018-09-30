@@ -5,16 +5,19 @@ package org.cts.pm.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author {Amit Kumar chaudhary}
@@ -24,10 +27,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "users")
-@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE)
-public class User extends BaseModel<String> implements Serializable {
+@JsonIgnoreProperties(value = { "taskId", "projectId" }, allowGetters = true)
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private String userId;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -38,23 +43,20 @@ public class User extends BaseModel<String> implements Serializable {
 	@Column(name = "employee_id")
 	private String employeeId;
 
-	@Column(name = "project_id")
-	private String projectId;
+	private Task taskId;
 
-	@Column(name = "task_id")
-	private String taskId;
+	private Project projectId;
 
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@JsonProperty("id")
-	public String getPrimaryKey() {
-		return this.primaryKey;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -81,20 +83,82 @@ public class User extends BaseModel<String> implements Serializable {
 		this.employeeId = employeeId;
 	}
 
-	public String getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
-	}
-
-	public String getTaskId() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "task_id", nullable = true)
+	@JsonBackReference("taskName")
+	public Task getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(String taskId) {
+	public void setTaskId(Task taskId) {
 		this.taskId = taskId;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_id", nullable = true)
+	@JsonBackReference("projectName")
+	public Project getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Project projectId) {
+		this.projectId = projectId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
+		result = prime * result + ((taskId == null) ? 0 : taskId.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (employeeId == null) {
+			if (other.employeeId != null)
+				return false;
+		} else if (!employeeId.equals(other.employeeId))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (projectId == null) {
+			if (other.projectId != null)
+				return false;
+		} else if (!projectId.equals(other.projectId))
+			return false;
+		if (taskId == null) {
+			if (other.taskId != null)
+				return false;
+		} else if (!taskId.equals(other.taskId))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+	
+	
 }
