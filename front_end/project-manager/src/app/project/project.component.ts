@@ -16,10 +16,12 @@ export class ProjectComponent implements OnInit {
   listProject: any = [];
   projectAddcheckbox : boolean =false;
 
-  projectAddmanager: string;
+  userAddmanager: string;
   projectAdd;
 
   direction: number;
+  
+  error : any;
   
   allUserProject: User[] =[];
 
@@ -32,55 +34,60 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(function() {
-
-    }
-    
-    this.projectService.getProjects()
+   this.getAllProject();
+  }
+  
+  getAllProject(){ 
+     this.projectService.getProjects()
       .subscribe(data => {
         this.listProject = data;
-        console.log(data);
-      });
+      }, error => this.error);
   }
 
   onDeleteProject(project: Project): void {
-    console.log(project);
     this.projectService.deleteProject(null)
       .subscribe(data => {
         this.projectAdd = this.projectAdd.filter(u => u !== project);
-      })
+      }, error => this.error)
   };
 
   onEditProject(project: Project): void {
-    console.log(project);
+    this.projectAddcheckbox=true;
     this.projectAdd = project;
+     this.onAllUserSearch();
   };
 
   onAddProject(): void {
-    console.log(this.projectAdd);
-    console.log(this.projectAddmanager);
-    if (this.projectAdd.userId == null) {
-      this.projectService.createProject(this.projectAdd , this.projectAddmanager)
+    
+    if(!this.projectAddcheckbox){
+      this.projectAdd.startDate=new Date();
+      let nextDay = new Date(this.projectAdd.startDate);
+      nextDay.setDate(this.projectAdd.startDate.getDate()+1);
+      this.projectAdd.endDate=nextDay;
+    }
+    if (this.projectAdd.projectId == null) {
+      this.projectService.createProject(this.projectAdd , this.userAddmanager)
         .subscribe(data => {
-          this.listProject.push(this.projectAdd);
-          this.projectAdd = {};
-        });
+          this.getAllProject();
+          this.onProjectReset();
+        }, error => this.error);
     } else {
-      this.projectService.updateProject(this.projectAdd , this.projectAddmanager)
+      this.projectService.updateProject(this.projectAdd , this.userAddmanager)
         .subscribe(data => {
-          this.listProject.push(this.projectAdd);
-          this.projectAdd = {};
-        });
+          this.getAllProject();
+          this.onProjectReset();
+        }, error => this.error);
     }
   };
 
   onProjectReset(): void {
      this.projectAdd = new Project('', '', new Date(), new Date(), 0);
+     this.projectAddcheckbox= false;;
+    this.allUserProject=[];
   }
 
   onSortProject(value: string): void {
-    console.log(value);
-    this.isDesc = !this.isDesc; //change the direction    
+    this.isDesc = !this.isDesc; 
     this.column = value;
     this.direction = this.isDesc ? 1 : -1;
   }
@@ -89,12 +96,10 @@ export class ProjectComponent implements OnInit {
      this.userService.getUsers()
       .subscribe(data => {
         this.allUserProject = data;
-            console.log(data);
-      });
+      }, error => this.error);
   }
   
   onDateFlagChanged(input){
-    console.log(input);
     if(!input){
     this.projectAdd.endDate= null;
    this.projectAdd.startDate= null;

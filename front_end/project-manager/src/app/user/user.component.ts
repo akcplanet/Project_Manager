@@ -11,62 +11,63 @@ import {User} from '../model/user';
 export class UserComponent implements OnInit {
 
   listUser: any = [];
-  userAdd;  
+  userAdd;
   direction: number;
- 
+
+  error: any;
+
   records: Array<User>;
   isDesc: boolean = false;
-  column: string = 'CategoryName';
-  
+  column: string = 'UserName';
+
   constructor(private userService: UserService) {
     this.userAdd = new User('', '', '', '');
   }
 
   ngOnInit() {
+    this.getAllUser();
+  }
+
+  getAllUser() {
     this.userService.getUsers()
       .subscribe(data => {
         this.listUser = data;
-            console.log(data);
-      });
+      }, error => this.error);
   }
 
   onDeleteUser(user: User): void {
-    console.log(user);
     this.userService.deleteUser(null)
       .subscribe(data => {
-      this.listUser = this.listUser.filter(u => u !== user);
-       })
+        this.listUser = this.listUser.filter(u => u !== user);
+      }, error => this.error)
   };
 
   onEditUser(user: User): void {
-    console.log(user);
     this.userAdd = user;
   };
 
   onAddUser(): void {
-    console.log(this.userAdd);
     if (this.userAdd.userId == null) {
       this.userService.createUser(this.userAdd)
         .subscribe(data => {
           this.listUser.push(this.userAdd);
-           this.userAdd ={};
-        });
+          this.userAdd = {};
+        }, error => this.error);
     } else {
-      this.userService.createUser(this.userAdd)
+      this.userService.updateUser(this.userAdd)
         .subscribe(data => {
-          this.listUser.push(this.userAdd);
-           this.userAdd ={};
-        });
+          this.getAllUser();
+          this.userAdd = {};
+        }, error => this.error);
     }
   };
 
   onUserReset(): void {
-  this.userAdd =new User('', '', '', '');
+    this.userAdd = new User('', '', '', '');
   }
 
   onSortUser(value: string): void {
-    console.log(value);
-    this.isDesc = !this.isDesc; //change the direction    
+    this.isDesc = !this.isDesc;
     this.column = value;
     this.direction = this.isDesc ? 1 : -1;
   }
