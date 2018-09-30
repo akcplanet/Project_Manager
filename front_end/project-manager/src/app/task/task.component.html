@@ -4,12 +4,12 @@
 	
 		   <div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Project:</label>
-				 <div class="col-sm-6">	  
+				 <div class="col-sm-8">	  
 				  <select class="form-control" [(ngModel)]="taskAdd.projectId"  name="allUserProject">				  
 				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to Search the Project </option>
    <option [value]="project.id" *ngFor="let project of getAllProject">{{project.project}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllProjectSearch()">Search</span></div>
+ 	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllProjectSearch()">Search</span></div>
  </div>
 	
 		
@@ -19,59 +19,64 @@
 			<input type="text" class="form-control"  id="firstName"  placeholder="Enter Project Name..." name="Task" [(ngModel)]="taskAdd.task" required >
 		</div></div>
 		
-		<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Parent Task:</label>
-		    <div class="col-sm-8">
-			<input type="checkbox" class="form-control" id="pstartDate"  name="taskAddcheckbox"  [(ngModel)]="taskAddcheckbox" required>
-		</div></div>
+		<div class="input-group col-sm-12" style="margin-left: 25px;">
+			<label  id="basic-addon1" class="col-sm-3 control-label" ><input type="checkbox"  id="ptaskbox" name="taskAddcheckbox"  (ngModelChange)="onDateFlagChanged(!taskAddcheckbox)"  [(ngModel)]="taskAddcheckbox" required >Parent Task</label>
+		
+		</div>
 		
 		
-		<div class="input-group col-sm-12">
+		
+			<div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Priority:</label>
-		    <div class="col-sm-8">
-		
-			<input type="range" class="form-control" id="priority" min="0" max="20" step="1"  name="priority" [(ngModel)]="taskAdd.priority" required>
+				 <div class="col-sm-8">
+				  
+			<input type="range" class="form-control" id="priority"  min="0" max="30" step="1" value="15" name="priority"   [(ngModel)]="taskAdd.priority" oninput="outpriority.value = priority.value" required>
+			<output name="outpriorityName" id="outpriority">15</output>
+			
+	
+			
+			
 		</div></div>
+		
+		
+		
 		
 				   <div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Parent Task:</label>
-				 <div class="col-sm-6">	  
+				 <div class="col-sm-8">	  
 				  <select class="form-control" [(ngModel)]="taskAdd.parentId"  name="allUserProject">				  
 				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to Search the Parent Task </option>
    <option [value]="ptask.parentId" *ngFor="let ptask of parentTaskList">{{ptask.parentTask}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllParentTasks()">Search</span></div>
+ 	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllParentTasks()">Search</span></div>
  </div>
 		
 		
+			<div class="input-group col-sm-12"  style="margin-top: 3px;" >	
 		
-			
-			<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Set Start:</label>
-				 <div class="col-sm-8">
-			<input type="date" class="form-control" id="projectName" [disabled]="!projectAddcheckbox" name="startDate"	[(ngModel)]="taskAdd.startDate"  value="2018-07-22" required> 
-		</div></div>
-		
-			<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >End Date:</label>
-				 <div class="col-sm-8">
-		<input type="date" class="form-control" id="projectName" [disabled]="!projectAddcheckbox" name="endDate" [(ngModel)]="taskAdd.endDate"   value="2018-07-22" required >
-		</div></div>
+			 	<label  id="basic-addon1" class=" col-sm-2 control-label" >Start Date:</label>
+			 	<div class="col-sm-2">
+			<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  class="textbox-n" id="projectStartDate" [disabled]="!taskAddcheckbox" name="startDate"	[(ngModel)]="taskAdd.startDate"  placeholder="Start Date" >
+				 </div>
+				 	<label  id="basic-addon1" class="  col-sm-2 control-label" >End Date:</label>
+		<input type="text"  onfocus="(this.type='date')"  onblur="(this.type='text')" class="textbox-n" id="projectEndDate" placeholder="End Date"  [disabled]="!taskAddcheckbox" name="endDate" [(ngModel)]="taskAdd.endDate"   required >
+	
+		</div>
 		
 			   <div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Manager:</label>
-				 <div class="col-sm-6">	  
+				<label  id="basic-addon1" class="col-sm-2 control-label" >User:</label>
+				 <div class="col-sm-8">	  
 				  <select class="form-control" [(ngModel)]="projectAddmanager"  name="allUserProject">				  
 				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to View the Mangers List </option>
    <option [value]="user.id" *ngFor="let user of getUserProject">{{user.firstName+ ' '+ user.lastName}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllUserSearch()">Search</span></div>
+ 	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllUserSearch()">Search</span></div>
  </div>
 		
 		
 		<div class="row" style="margin-bottom: 10px;"></div>
-		<div class="col-sm-10 btn-toolbar  " style="justify-content: center; display: flex;">
-			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()">Add</span>
+		<div class="col-sm-12 btn-toolbar  " style="justify-content: center; display: flex;">
+			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()">Add Task</span>
 			<span type="button" class="btn btn-primary border-zero"(click)="onTaskReset()">Reset</span>
 		</div>
 		<div class="row" style="margin-bottom: 10px;"></div>
