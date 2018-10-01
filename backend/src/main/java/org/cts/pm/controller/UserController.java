@@ -39,31 +39,35 @@ public class UserController {
 
 	@GetMapping
 	public @ResponseBody ResponseEntity<List<User>> getAllUsers() {
+		logger.info("Logging in @RestController getAllUsers  method");
 		List<User> users = userService.getAllUsers();
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<User> getUserById(@PathVariable("id") String userId) {
+		logger.info("Logging in @RestController getUserById  method for userId: " + userId);
 		User user = userService.getUserById(userId);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public @ResponseBody ResponseEntity<User> createProject(@RequestBody User user) {
-		logger.info("Create Project Value" + user.getFirstName());
+		logger.info("Create @RestController Project Value" + user.getFirstName());
 		userService.addUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
 
 	@PutMapping
 	public @ResponseBody ResponseEntity<User> updateTask(@RequestBody User user) {
+		logger.info("Logging in @RestController updateTask  method for userId: " + user.getUserId());
 		userService.updateUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<?> deleteTask(@PathVariable(value = "id") String userId) {
+		logger.info("Logging in @RestController deleteTask	  method for userId: " + userId);
 		userService.deleteUser(userId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}

@@ -18,6 +18,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -27,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Entity
 @Table(name = "parent_task")
-@JsonAutoDetect
 public class ParentTask  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -42,6 +42,7 @@ public class ParentTask  implements Serializable {
 	private Set<Task> task = new HashSet<Task>(0);
 
 	@OneToMany(mappedBy = "parentTaskId")
+	@JsonBackReference("parentObj")
 	public Set<Task> getTask() {
 		return task;
 	}
@@ -74,4 +75,16 @@ public class ParentTask  implements Serializable {
 		this.parentTask = parentTask;
 	}
 
+	public ParentTask(@NotBlank String parentTask) {
+		super();
+		this.parentTask = parentTask;
+	}
+
+	public ParentTask() {
+		super();
+	}
+
+	
+	
+	
 }

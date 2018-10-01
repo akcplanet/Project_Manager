@@ -1,0 +1,103 @@
+<div class="row" style="margin-bottom: 10px;"></div>
+
+
+<!--  ********************************************************************************************************************************* -->
+
+
+  <div class="modal-content col-sm-12">
+	 <div class="col-sm-5" style="margin-left: -30px;">
+		<div >
+			<input type="text" class="form-control"  style="border-radius: 0px !important;"  [(ngModel)]="searchTask" id="inlineFormInputGroupUsername2" placeholder="Search...">
+		</div></div>
+	  <div class="col-sm-2" type="text" ><strong>Sort Task By: </strong></div>
+	<div class="col-sm-5">
+	      <div class="btn-toolbar">
+		<span type="button" class="btn btn-primary btn-sm"(click)="onSortTask('startDate')">Start Date</span>
+		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortTask('endDate')">End Date</span>
+		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortTask('priority')">Priority</span>
+	<span type="button" class="btn btn-primary btn-sm"	(click)="onSortTask('status')">Completed</span></div></div>
+</div>
+  
+  
+  <!--  ********************************************************************************************************************************* -->
+  
+  
+  <div *ngFor="let taskL of listTask  | category: searchTask | orderBy: {property: column, direction: direction}">
+<div class="modal-content col-sm-12" >	
+
+	<div class="col-sm-3"  style="margin-left: -40px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Task</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important ; text-align: center; font-weight: bold;" placeholder="{{taskL.task}}" readonly>	
+			</div></div>
+			</div>
+
+	<div class="col-sm-3"  style="margin-left: -90px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Parent</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important ; text-align: center; font-weight: bold;" placeholder="{{taskL.parentTaskId.parentTask}}" readonly>	
+			</div></div>
+			</div>
+
+   
+  
+			<div class="col-sm-2"  style="margin-left: -90px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Priority</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="background-color: white !important ; border: 0px !important ; border-radius: 0px !important ; text-align: center; font-size: 18px; font-weight: bold;" placeholder="{{taskL.priority}}" readonly>	
+			</div></div>
+			</div>
+			
+			
+				<div class="col-sm-2"  style="margin-left: -50px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">Start</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="background-color: white !important ; border: 0px !important ;  border-radius: 0px !important ;  text-align: center; font-weight: bold;" placeholder="{{taskL.startDate}}" readonly>	
+			</div></div>
+			</div>
+			
+			
+			
+				<div class="col-sm-2"  style="margin-left: -40px;">
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold; " id="basic-addon3">End</span>
+				</div></div>
+			 <div class="col-sm-12">
+			<div class="input-group input-group-sm ">
+				<input type="text" class="form-control  short-div"	id="inlineFormInputGroupUsername4" style="background-color: white !important ; border: 0px !important ; border-radius: 0px !important ; text-align: center; font-weight: bold;" placeholder="{{taskL.endDate}}" readonly>	
+			</div></div>
+			</div>
+			
+			<div class="col-sm-1 ">
+			<div class="row" style="padding-bottom:30px ;"></div>
+			   <span type="button" class="btn btn-primary btn-sm  align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;"  (click)="onEditTask(taskL)">Edit</span>
+			</div>
+			
+			<div class="col-sm-1" >
+			<div class="row" style="padding-bottom:30px ;"></div>
+				<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" (click)="onEndTask(taskL)">End Task</span></div>
+			</div>		
+	</div>
+
+  
+  
+  
+  
+  

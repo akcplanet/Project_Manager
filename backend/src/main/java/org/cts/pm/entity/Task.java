@@ -52,7 +52,7 @@ public class Task implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id" , nullable = true)
-	@JsonBackReference("parentObj")
+//	@JsonBackReference("parentObj")
 	public ParentTask getParentTaskId() {
 		return parentTaskId;
 	}
@@ -204,6 +204,23 @@ public class Task implements Serializable {
 		this.status = status;
 	}
 
+	public Task(Project projectId, ParentTask parentTaskId, String task, Date startDate, Date endDate,
+			int priority, String status) {
+		super();
+		this.projectId = projectId;
+		this.parentTaskId = parentTaskId;
+		this.task = task;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.priority = priority;
+		this.status = status;
+	}
+
+	public Task() {
+		super();
+	}
+
+	
 	
 
 }

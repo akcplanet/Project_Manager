@@ -29,26 +29,31 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<Project> getAllProjects() {
+		logger.info("Logging in  Service  @@Service getAllProjects");
 		return projectDAO.getAllProjects();
 	}
 
 	@Override
 	public Project getProjectById(String projectId) {
+		logger.info("Logging in  Service  @@Service getProjectById method for projectId: " + projectId);
 		return projectDAO.getProjectById(projectId);
 	}
 
 	@Override
 	public void addProject(Project project, String userId) {
-		projectDAO.addProject(project,  userId);
+		logger.info("Logging in  Service  @@Service addProject method for userId: " + userId);
+		projectDAO.addProject(project, userId);
 	}
 
 	@Override
 	public void updateProject(Project project, String userId) {
-		projectDAO.updateProject(project,  userId);
+		logger.info("Logging in  Service  @@Service updateProject method for userId: " + userId);
+		projectDAO.updateProject(project, userId);
 	}
 
 	@Override
 	public void deleteProject(String projectId) {
+		logger.info("Logging in  Service  @@Service deleteProject method for projectId: " + projectId);
 		projectDAO.deleteProject(projectId);
 	}
 
