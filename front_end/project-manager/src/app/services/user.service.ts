@@ -27,24 +27,24 @@ export class UserService {
   }
 
   getUsers() {
-    return this.httpClient.get<User[]>(this.baseUrl + '/user');
+    return this.httpClient.get<User[]>(this.baseUrl + 'user');
   }
 
   getUserById(id: number) {
-    return this.httpClient.get<User>(this.baseUrl + '/user/' + id);
+    return this.httpClient.get<User>(this.baseUrl + 'user/' + id);
   }
 
   createUser(user: User) {
-    return this.httpClient.post(this.baseUrl+ '/user', user, this.httpOptions);
+    return this.httpClient.post(this.baseUrl+ 'user', user, this.httpOptions);
   }
 
   updateUser(user: User) {
-    return this.httpClient.put(this.baseUrl+ '/user', user, this.httpOptions)
+    return this.httpClient.put(this.baseUrl+ 'user', user, this.httpOptions)
 
   }
 
   deleteUser(id: string) {
-    return this.httpClient.delete(this.baseUrl + '/user/' + id, this.httpOptions);
+    return this.httpClient.delete(this.baseUrl + 'user/' + id, this.httpOptions);
   }
 
 }

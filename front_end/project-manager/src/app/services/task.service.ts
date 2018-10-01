@@ -26,28 +26,28 @@ export class TaskService {
   }
 
   getTasks() {
-    return this.httpClient.get<TaskDTO[]>(this.baseUrl + '/task');
+    return this.httpClient.get<TaskDTO[]>(this.baseUrl + 'task');
   }
   
   getParentTasks() {
-    return this.httpClient.get<any[]>(this.baseUrl + '/task/parent');
+    return this.httpClient.get<any[]>(this.baseUrl + 'task/parent');
   }
 
   getTaskById(id: number) {
-    return this.httpClient.get<TaskDTO>(this.baseUrl + '/task/' + id);
+    return this.httpClient.get<TaskDTO>(this.baseUrl + 'task/' + id);
   }
 
   createTask(taskDTO: TaskDTO) {
-    return this.httpClient.post(this.baseUrl + '/task/',JSON.stringify(taskDTO),  this.httpOptions);
+    return this.httpClient.post(this.baseUrl + 'task/',JSON.stringify(taskDTO),  this.httpOptions);
   }
 
   updateTask(taskDTO: TaskDTO) {
-    return this.httpClient.put(this.baseUrl+ '/task/',JSON.stringify(taskDTO) , this.httpOptions)
+    return this.httpClient.put(this.baseUrl+ 'task/',JSON.stringify(taskDTO) , this.httpOptions)
 
   }
 
   deleteTask(id: string) {
-    return this.httpClient.delete(this.baseUrl + '/task/' + id, this.httpOptions);
+    return this.httpClient.delete(this.baseUrl + 'task/' + id, this.httpOptions);
   }
 
 }

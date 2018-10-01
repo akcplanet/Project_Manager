@@ -4,136 +4,74 @@
 	
 		   <div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Project:</label>
-				 <div class="col-sm-6">	  
-				  <select class="form-control" [(ngModel)]="taskAdd.projectId"  name="allUserProject">				  
+				 <div class="col-sm-8">	  
+				  <select class="form-control" [(ngModel)]="taskAdd.projectId"  name="selectProject">				  
 				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to Search the Project </option>
-   <option [value]="project.id" *ngFor="let project of getAllProject">{{project.project}}</option>
+   <option [value]="project.projectId" *ngFor="let project of getAllProject">{{project.project}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllProjectSearch()">Search</span></div>
+ 	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllProjectSearch()">Search</span></div>
  </div>
 	
 		
 		<div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Task:</label>
 		    <div class="col-sm-8">
-			<input type="text" class="form-control"  id="firstName"  placeholder="Enter Project Name..." name="Task" [(ngModel)]="taskAdd.task" required >
+			<input type="text" class="form-control"  id="firstName"  placeholder="Enter Task Name..." name="Task" [(ngModel)]="taskAdd.task" required >
 		</div></div>
 		
-		<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Parent Task:</label>
-		    <div class="col-sm-8">
-			<input type="checkbox" class="form-control" id="pstartDate"  name="taskAddcheckbox"  [(ngModel)]="taskAddcheckbox" required>
-		</div></div>
+		<div class="input-group col-sm-12" style="margin-left: 25px;">
+			<label  id="basic-addon1" class="col-sm-3 control-label" ><input type="checkbox"  id="ptaskbox" name="taskAddcheckbox"  (ngModelChange)="onDateFlagChanged(!taskAddcheckbox)"  [(ngModel)]="taskAddcheckbox" required >Parent Task</label>
 		
-		
-		<div class="input-group col-sm-12">
+		</div>
+
+			<div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Priority:</label>
-		    <div class="col-sm-8">
-		
-			<input type="range" class="form-control" id="priority" min="0" max="20" step="1"  name="priority" [(ngModel)]="taskAdd.priority" required>
+				 <div class="col-sm-8">
+				  
+			<input type="range"  [disabled]="taskAddcheckbox" class="form-control" id="priority"  min="0" max="30" step="1" value="0" name="priority"   [(ngModel)]="taskAdd.priority" oninput="outpriority.value = priority.value" required>
+			<output name="outpriorityName" id="outpriority">0</output>
+
 		</div></div>
 		
 				   <div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Parent Task:</label>
-				 <div class="col-sm-6">	  
-				  <select class="form-control" [(ngModel)]="taskAdd.parentId"  name="allUserProject">				  
+				 <div class="col-sm-8">	  
+				  <select class="form-control" [(ngModel)]="taskAdd.parentId"  name="allUserProject" [disabled]="taskAddcheckbox">				  
 				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to Search the Parent Task </option>
    <option [value]="ptask.parentId" *ngFor="let ptask of parentTaskList">{{ptask.parentTask}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllParentTasks()">Search</span></div>
+ 	<div class="col-sm-2" ><span type="button" class="btn btn-primary btn-sm"  (click)="getAllParentTasks()" >Search</span></div>
  </div>
 		
 		
+			<div class="input-group col-sm-12"  style="margin-top: 3px;" >	
 		
-			
-			<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Set Start:</label>
-				 <div class="col-sm-8">
-			<input type="date" class="form-control" id="projectName" [disabled]="!projectAddcheckbox" name="startDate"	[(ngModel)]="taskAdd.startDate"  value="2018-07-22" required> 
-		</div></div>
-		
-			<div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >End Date:</label>
-				 <div class="col-sm-8">
-		<input type="date" class="form-control" id="projectName" [disabled]="!projectAddcheckbox" name="endDate" [(ngModel)]="taskAdd.endDate"   value="2018-07-22" required >
-		</div></div>
+			 	<label  id="basic-addon1" class=" col-sm-2 control-label" >Start Date:</label>
+			 	<div class="col-sm-2">
+			<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  class="textbox-n" id="projectStartDate" [disabled]="taskAddcheckbox" name="startDate"	[(ngModel)]="taskAdd.startDate"  placeholder="Start Date" >
+				 </div>
+				 	<label  id="basic-addon1" class="  col-sm-2 control-label" >End Date:</label>
+		<input type="text"  onfocus="(this.type='date')"  onblur="(this.type='text')" class="textbox-n" id="projectEndDate" placeholder="End Date"  [disabled]="taskAddcheckbox" name="endDate" [(ngModel)]="taskAdd.endDate"   required >
+	
+		</div>
 		
 			   <div class="input-group col-sm-12">
-				<label  id="basic-addon1" class="col-sm-2 control-label" >Manager:</label>
-				 <div class="col-sm-6">	  
-				  <select class="form-control" [(ngModel)]="projectAddmanager"  name="allUserProject">				  
-				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to View the Mangers List </option>
-   <option [value]="user.id" *ngFor="let user of getUserProject">{{user.firstName+ ' '+ user.lastName}}</option>
+				<label  id="basic-addon1" class="col-sm-2 control-label" >User:</label>
+				 <div class="col-sm-8">	  
+				  <select class="form-control" [(ngModel)]="taskAdd.userId"  name="allUserSelect" >				  
+				 <option [ngValue]="undefined" disabled  selected>Please click on Search button to View the Users List </option>
+   <option [value]="user.userId" *ngFor="let user of getUserProject">{{user.firstName+ ' '+ user.lastName}}</option>
  </select></div>
- 	<div class="col-sm-4"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllUserSearch()">Search</span></div>
+ 	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm"  (click)="getAllUserSearch()">Search</span></div>
  </div>
 		
 		
 		<div class="row" style="margin-bottom: 10px;"></div>
-		<div class="col-sm-10 btn-toolbar  " style="justify-content: center; display: flex;">
-			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()">Add</span>
+		<div class="col-sm-12 btn-toolbar  " style="justify-content: center; display: flex;">
+			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()">Add Task</span>
 			<span type="button" class="btn btn-primary border-zero"(click)="onTaskReset()">Reset</span>
 		</div>
 		<div class="row" style="margin-bottom: 10px;"></div>
 		</form>
 </div>
 
-<div class="row" style="margin-bottom: 10px;"></div>
-
-
-<!--  ********************************************************************************************************************************* -->
-
-
-  <div class="modal-content col-sm-12">
-	 <div class="col-sm-5" style="margin-left: -30px;">
-		<div >
-			<input type="text" class="form-control"  style="border-radius: 0px !important;"  [(ngModel)]="searchTask" id="inlineFormInputGroupUsername2" placeholder="Search...">
-		</div></div>
-	  <div class="col-sm-2" type="text" ><strong>Sort Task By: </strong></div>
-	<div class="col-sm-5">
-	      <div class="btn-toolbar">
-		<span type="button" class="btn btn-primary btn-sm"(click)="onSortTask('startDate')">Start Date</span>
-		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortTask('endDate')">End Date</span>
-		<span type="button" class="btn btn-primary btn-sm "	(click)="onSortTask('priority')">Priority</span>
-	<span type="button" class="btn btn-primary btn-sm"	(click)="onSortTask('status')">Completed</span></div></div>
-</div>
-  
-  
-  <!--  ********************************************************************************************************************************* -->
-  
-  
-  <div *ngFor="let taskL of listTask  | category: searchUser | orderBy: {property: column, direction: direction}">
-<div class="modal-content col-sm-12" >	   
-    <div class="col-sm-10" style="margin-left: -30px;">
-			<div class="input-group input-group-sm " >
-				<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon1" >Task:</span>
-				<input type="text" class="form-control"	id="inlineFormInputGroupUsername2"	style="border-radius: 0px !important; " placeholder="{{taskL.task}}" readonly>
-			</div></div>		
-	<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm " style=" width:50%;" (click)="onEditUser(taskL)">Edit</span></div>
-	 <div class="col-sm-10" style="margin-left: -30px;">
-			<div class="input-group input-group-sm">			
-					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon2">Start Date:</span>
-				   <input type="text" class="form-control" id="inlineFormInputGroupUsername3"  style="border-radius: 0px !important; " placeholder="{{taskL.startDate}}" readonly>
-			</div></div>
-		<div class="col-sm-2"><span type="button" class="btn btn-primary btn-sm" style=" width:50%;"	(click)="onEndTask(userL)">End Task</span></div>
-			 <div class="col-sm-10" style="margin-left: -30px;">
-			<div class="input-group input-group-sm ">
-					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon3">End Date:</span>
-				<input type="text" class="form-control"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important; " placeholder="{{taskL.endDate}}" readonly>	
-			</div></div>	
-			
-			 <div class="col-sm-10" style="margin-left: -30px;">
-			<div class="input-group input-group-sm ">
-					<span class="input-group-addon align-right" style="min-width:100px ; border-radius: 0px !important; border: 0px !important; font-weight: bold;" id="basic-addon3">Priority:</span>
-				<input type="text" class="form-control"	id="inlineFormInputGroupUsername4" style="border-radius: 0px !important; " placeholder="{{taskL.priority}}" readonly>	
-			</div></div>
-	
-			
-		</div>
-	</div>
-
-  
-  
-  
-  
-  

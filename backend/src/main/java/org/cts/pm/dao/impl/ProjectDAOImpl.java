@@ -10,6 +10,8 @@ import org.cts.pm.entity.Project;
 import org.cts.pm.entity.User;
 import org.cts.pm.repository.ProjectRepository;
 import org.cts.pm.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
  *         {CTS}
  */
 
-
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	ProjectRepository projectRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -37,24 +40,27 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	@Override
 	public Project getProjectById(String projectId) {
+		logger.info("Logging in  DAO @Repository getProjectById  method for projectId" + projectId);
 		return projectRepository.getOne(projectId);
 	}
 
 	@Transactional
 	@Override
-	public void addProject(Project project , String userId) {
-		User user=userRepository.getOne(userId);
+	public void addProject(Project project, String userId) {
+		logger.info("Logging in  DAO @Repository addProject  method for userId" + userId);
+		User user = userRepository.getOne(userId);
 		user.setProjectId(project);
 		userRepository.saveAndFlush(user);
 	}
 
 	@Transactional
 	@Override
-	public void updateProject(Project project , String userId) {
+	public void updateProject(Project project, String userId) {
+		logger.info("Logging in  DAO @Repository updateProject  method for userId" + userId);
 		Project existing = getProjectById(project.getProjectId());
 		if (existing != null) {
 			project.setProjectId(existing.getProjectId());
-			User user=userRepository.getOne(userId);
+			User user = userRepository.getOne(userId);
 			user.setProjectId(project);
 			userRepository.saveAndFlush(user);
 		}
@@ -63,6 +69,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Transactional
 	@Override
 	public void deleteProject(String projectId) {
+		logger.info("Logging in  DAO @Repository deleteProject  method for projectId" + projectId);
 		projectRepository.deleteById(projectId);
 	}
 

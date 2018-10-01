@@ -12,6 +12,7 @@ import { UiModule } from './ui/ui.module';
 
 import { CategoryPipe } from './directives/category.pipe';
 import { OrderrByPipe } from './directives/orderby.pipe';
+import { ViewTaskComponent } from './view-task/view-task.component';
 
 @NgModule({
    bootstrap: [ AppComponent ],
@@ -23,13 +24,13 @@ import { OrderrByPipe } from './directives/orderby.pipe';
        { path: 'project', component: ProjectComponent },
        { path: 'task', component: TaskComponent },
        { path: 'user', component: UserComponent },
-       { path: 'taskView', component: TaskComponent}
+       { path: 'taskView', component: ViewTaskComponent}
      ]),
      UiModule,
      FormsModule,
 
  ],
- declarations: [ AppComponent, MenuComponent, ProjectComponent, TaskComponent, UserComponent , CategoryPipe, OrderrByPipe],
+ declarations: [ AppComponent, MenuComponent, ProjectComponent, TaskComponent, UserComponent , CategoryPipe, OrderrByPipe, ViewTaskComponent],
    providers: []
 })
 export class AppModule {
