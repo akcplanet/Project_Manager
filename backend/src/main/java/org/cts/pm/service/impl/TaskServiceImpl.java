@@ -41,21 +41,21 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addTask(TaskDTO input) {
+	public void addTask(TaskDTO input, boolean flag) {
 		logger.info("Logging in  Service  @@Service addTask method for input: " + input.getUserId());
-		taskDAO.addTask(input);
+		taskDAO.addTask(input , flag);
 	}
 
 	@Override
-	public void updateTask(TaskDTO input) {
+	public void updateTask(TaskDTO input, boolean flag) {
 		logger.info("Logging in  Service  @@Service updateTask method for input: " + input.getUserId());
-		taskDAO.updateTask(input);
+		taskDAO.updateTask(input, flag);
 	}
 
 	@Override
-	public void deleteTask(String taskId) {
-		logger.info("Logging in  Service  @@Service deleteTask method for taskId: " + taskId);
-		taskDAO.deleteTask(taskId);
+	public void endTask(String taskId) {
+		logger.info("Logging in  Service  @@Service endTask method for taskId: " + taskId);
+		taskDAO.endTask(taskId);
 	}
 
 	@Override

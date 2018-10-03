@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,24 +54,24 @@ public class TaskController {
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 
-	@PostMapping("/")
-	public  @ResponseBody  ResponseEntity<?> createProject(@RequestBody TaskDTO task) {
+	@PostMapping("/{flag}")
+	public  @ResponseBody  ResponseEntity<?> addTask(@PathVariable(value = "flag") boolean flag , @RequestBody TaskDTO task) {
 		logger.info("Logging in @RestController createProject  method for userId: " + task.getUserId());
-		taskService.addTask(task);
+		taskService.addTask(task ,flag);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@PutMapping("/")
-	public  @ResponseBody  ResponseEntity<?> updateTask(@RequestBody TaskDTO task) {
+	@PutMapping("/{flag}")
+	public  @ResponseBody  ResponseEntity<?> updateTask(@PathVariable(value = "flag") boolean flag , @RequestBody TaskDTO task) {
 		logger.info("Logging in @RestController updateTask  method for task: " + task.getUserId());
-		taskService.updateTask(task);
+		taskService.updateTask(task,flag);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/{id}")
-	public  @ResponseBody  ResponseEntity<?> deleteTask(@PathVariable(value = "id") String taskId) {
-		logger.info("Logging in @RestController deleteTask  method for taskId: " + taskId);
-		taskService.deleteTask(taskId);
+	@PutMapping("/endTask/{id}")
+	public  @ResponseBody  ResponseEntity<?> endTask(@PathVariable(value = "id") String taskId) {
+		logger.info("Logging in @RestController endTask  method for taskId: " + taskId);
+		taskService.endTask(taskId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	

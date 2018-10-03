@@ -52,9 +52,9 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public void deleteProject(String projectId) {
+	public void suspendProject(String projectId) {
 		logger.info("Logging in  Service  @@Service deleteProject method for projectId: " + projectId);
-		projectDAO.deleteProject(projectId);
+		projectDAO.suspendProject(projectId);
 	}
 
 }

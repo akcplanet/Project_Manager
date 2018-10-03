@@ -24,6 +24,6 @@ public interface ProjectService{
 
 	void updateProject(Project project, String userId);
 
-	void deleteProject(String projectId);
+	void suspendProject(String projectId);
 
 }

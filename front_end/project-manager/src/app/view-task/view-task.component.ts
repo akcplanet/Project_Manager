@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../services/task.service';
-import {ProjectService} from '../services/project.service';
-import {UserService} from '../services/user.service';
-import {Project} from '../model/project';
-import {User} from '../model/user';
 import {TaskDTO} from '../model/task';
+import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-view-task',
@@ -15,11 +12,12 @@ export class ViewTaskComponent implements OnInit {
 
   parentTaskList: any = [];
   listTask: any = [];
-  
+
   searchTask: string;
 
-  taskAdd;
+  taskend;
   taskDTO;
+  taskAdd;
 
   direction: number;
   error: any;
@@ -30,11 +28,10 @@ export class ViewTaskComponent implements OnInit {
 
   taskAddcheckbox: boolean = true;
 
-  getAllProject: Project[] = [];
-  getUserProject: User[] = [];
 
-  constructor(private taskService: TaskService, private projectService: ProjectService, private userService: UserService) {
-    this.taskAdd = new TaskDTO('', '', '', 0, '', '', '', '');
+  constructor(private taskService: TaskService, private route: Router) {
+    this.taskAdd = new TaskDTO('', '', '', '', 0, '', '', '', '');
+    this.taskend = new TaskDTO('', '', '', '', 0, '', '', '', '');
   }
 
   ngOnInit() {
@@ -50,11 +47,16 @@ export class ViewTaskComponent implements OnInit {
 
 
   onEditTask(editTask: TaskDTO): void {
+    this.route.navigate(['task/:editTask', editTask]);
   };
 
   onEndTask(endTask: TaskDTO): void {
+    this.taskend = endTask;
+    this.taskService.endTask(this.taskend.taskId)
+      .subscribe(data => {
+        this.getALLTasks();
+      }, error => this.error);
   };
-
 
   onSortTask(value: string): void {
     this.isDesc = !this.isDesc;

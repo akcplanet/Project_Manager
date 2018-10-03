@@ -9,6 +9,7 @@ import org.cts.pm.dao.TaskDAO;
 import org.cts.pm.dto.TaskDTO;
 import org.cts.pm.entity.ParentTask;
 import org.cts.pm.entity.Task;
+import org.cts.pm.entity.TaskStatus;
 import org.cts.pm.entity.User;
 import org.cts.pm.repository.ParentTaskRepository;
 import org.cts.pm.repository.ProjectRepository;
@@ -57,35 +58,59 @@ public class TaskDAOImpl implements TaskDAO {
 
 	@Transactional
 	@Override
-	public void addTask(TaskDTO input) {
+	public void addTask(TaskDTO input, boolean flag) {
 		logger.info("Logging in  DAO @Repository addTask");
-		User user = userRepository.getOne(input.getUserId());
-		Task tasknew = new Task();
-		tasknew.setEndDate(input.getEndDate());
-		tasknew.setPriority(input.getPriority());
-		tasknew.setStartDate(input.getStartDate());
-		tasknew.setStatus(input.getStatus());
-		tasknew.setTask(input.getTask());
-		tasknew.setProjectId(projectRepository.getOne(input.getProjectId()));
-		tasknew.setParentTaskId(parentRepository.getOne(input.getParentId()));
-		user.setTaskId(tasknew);
-		userRepository.saveAndFlush(user);
+		if (flag) {
+			ParentTask ptask = new ParentTask();
+			ptask.setParentTask(input.getTask());
+			ptask = parentRepository.saveAndFlush(ptask);
+			logger.info("Logging in  DAO @Repository added Parent Task");
+		} else {
+			User user = userRepository.getOne(input.getUserId());
+			user.setProjectId(projectRepository.getOne(input.getProjectId()));
+			Task tasknew = new Task();
+			tasknew.setEndDate(input.getEndDate());
+			tasknew.setPriority(input.getPriority());
+			tasknew.setStartDate(input.getStartDate());
+			tasknew.setStatus(TaskStatus.INPROGRESS);
+			tasknew.setTask(input.getTask());
+			tasknew.setProjectId(projectRepository.getOne(input.getProjectId()));
+			tasknew.setParentTaskId(parentRepository.getOne(input.getParentId()));
+			user.setTaskId(tasknew);
+			userRepository.saveAndFlush(user);
+			logger.info("Logging in  DAO @Repository added Task");
+		}
 	}
 
 	@Transactional
 	@Override
-	public void updateTask(TaskDTO input) {
-		/*
-		 * Task existing = getTaskById(task.getTaskId()); if (existing != null)
-		 * task.setTaskId(existing.getTaskId()); taskRepository.saveAndFlush(task);
-		 */
+	public void updateTask(TaskDTO input, boolean flag) {
+		logger.info("Logging in  DAO @Repository updateTask");
+		if (flag) {
+			ParentTask ptask = parentRepository.getOne(input.getParentId());
+			ptask.setParentTask(input.getTask());
+			ptask = parentRepository.saveAndFlush(ptask);
+			logger.info("Logging in  DAO @Repository added Parent Task");
+		} else {
+			User user = userRepository.getOne(input.getUserId());
+			Task tasknew = user.getTaskId();
+			tasknew.setEndDate(input.getEndDate());
+			tasknew.setPriority(input.getPriority());
+			tasknew.setStartDate(input.getStartDate());
+			tasknew.setTask(input.getTask());
+			user.setTaskId(tasknew);
+			userRepository.saveAndFlush(user);
+			logger.info("Logging in  DAO @Repository Updated Task");
+		}
 	}
 
 	@Transactional
 	@Override
-	public void deleteTask(String taskId) {
-		logger.info("Logging in  DAO @Repository deleteTask");
-		taskRepository.deleteById(taskId);
+	public void endTask(String taskId) {
+		logger.info("Logging in  DAO @Repository endTask");
+		Task task = taskRepository.getOne(taskId);
+		task.setStatus(TaskStatus.COMPLETED);
+		taskRepository.saveAndFlush(task);
 	}
 
 	@Override

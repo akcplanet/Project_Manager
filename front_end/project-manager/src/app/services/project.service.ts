@@ -41,7 +41,7 @@ export class ProjectService {
 
   }
 
-  deleteProject(id: string) {
+  suspendProject(id: string) {
     return this.httpClient.delete(this.baseUrl + 'project/' + id, this.httpOptions);
   }
 

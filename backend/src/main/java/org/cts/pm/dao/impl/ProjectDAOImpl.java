@@ -68,9 +68,11 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	@Transactional
 	@Override
-	public void deleteProject(String projectId) {
+	public void suspendProject(String projectId) {
 		logger.info("Logging in  DAO @Repository deleteProject  method for projectId" + projectId);
-		projectRepository.deleteById(projectId);
+		userRepository.findByProjectId(projectRepository.getOne(projectId)).forEach(user -> {
+			user.setProjectId(null);
+			userRepository.saveAndFlush(user);
+		});
 	}
-
 }
