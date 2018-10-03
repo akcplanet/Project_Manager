@@ -21,11 +21,11 @@ public interface TaskService{
 
 	Task getTaskById(String taskId);
 
-	void addTask(TaskDTO input);
+	void addTask(TaskDTO input , boolean flag);
 
-	void updateTask(TaskDTO input);
+	void updateTask(TaskDTO input, boolean flag);
 
-	void deleteTask(String taskId);
+	void endTask(String taskId);
 	
 	List<ParentTask> getAllParentTasks();
 

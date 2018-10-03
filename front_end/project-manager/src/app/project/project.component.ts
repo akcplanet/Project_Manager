@@ -15,11 +15,11 @@ export class ProjectComponent implements OnInit {
 
   listProject: any = [];
   projectAddcheckbox : boolean =false;
-  
   searchProject: string;
 
   userAddmanager: string;
   projectAdd;
+  projectSuspend,
 
   direction: number;
   
@@ -33,6 +33,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(private projectService: ProjectService , private userService: UserService) {
     this.projectAdd = new Project('', '', new Date(), new Date(), 0);
+     this.projectSuspend = new Project('', '', new Date(), new Date(), 0);
   }
 
   ngOnInit() {
@@ -46,10 +47,9 @@ export class ProjectComponent implements OnInit {
       }, error => this.error);
   }
 
-  onDeleteProject(project: Project): void {
-    this.projectService.deleteProject(null)
+  onSuspendProject(project: Project): void {
+    this.projectService.suspendProject(project.projectId)
       .subscribe(data => {
-        this.projectAdd = this.projectAdd.filter(u => u !== project);
       }, error => this.error)
   };
 

@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -98,7 +100,7 @@ public class Task implements Serializable {
 	private int priority;
 
 	@Column(name = "status")
-	private String status;
+	private TaskStatus status;
 
 	@Id
 	@Column(name = "task_id")
@@ -196,16 +198,17 @@ public class Task implements Serializable {
 		this.priority = priority;
 	}
 
-	public String getStatus() {
+	@Enumerated(EnumType.STRING)
+	public TaskStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TaskStatus status) {
 		this.status = status;
 	}
 
 	public Task(Project projectId, ParentTask parentTaskId, String task, Date startDate, Date endDate,
-			int priority, String status) {
+			int priority, TaskStatus status) {
 		super();
 		this.projectId = projectId;
 		this.parentTaskId = parentTaskId;

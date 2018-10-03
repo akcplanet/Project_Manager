@@ -5,6 +5,7 @@ import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
 import {User} from '../model/user';
 import {TaskDTO} from '../model/task';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -31,23 +32,27 @@ export class TaskComponent implements OnInit {
   getAllProject: Project[] = [];
   getUserProject: User[] = [];
 
-  constructor(private taskService: TaskService, private projectService: ProjectService, private userService: UserService) {
-    this.taskAdd = new TaskDTO('', '', '', 0, '', '', '', '');
+  constructor( private taskService: TaskService, private projectService: ProjectService, private userService: UserService, private router: Router, private route: ActivatedRoute) {
+    this.taskAdd = new TaskDTO('','','', '', 0, '', '', '', '');
   }
 
   ngOnInit() {
+    this.route.params
+    .subscribe(editTask => { 
+      this.taskAdd= editTask
+    });
   }
 
 
   onAddTask(): void {
     this.taskAdd.status = '';
     if (this.taskAdd.taskId == null) {
-      this.taskService.createTask(this.taskAdd)
+      this.taskService.createTask(this.taskAdd , this.taskAddcheckbox)
         .subscribe(data => {
           this.onTaskReset();
         }, error => this.error);
     } else {
-      this.taskService.updateTask(this.taskAdd)
+      this.taskService.updateTask(this.taskAdd, this.taskAddcheckbox)
         .subscribe(data => {
           this.onTaskReset();
         }, error => this.error);
@@ -55,7 +60,7 @@ export class TaskComponent implements OnInit {
   };
 
   onTaskReset(): void {
-    this.taskAdd = new TaskDTO('', '', '', 0, '', '', '', '');
+    this.taskAdd = new TaskDTO('','', '', '', 0, '', '', '', '');
     this.taskAddcheckbox = true;
     this.getAllProject = [];
     this.getUserProject = [];

@@ -37,17 +37,16 @@ export class TaskService {
     return this.httpClient.get<TaskDTO>(this.baseUrl + 'task/' + id);
   }
 
-  createTask(taskDTO: TaskDTO) {
-    return this.httpClient.post(this.baseUrl + 'task/',JSON.stringify(taskDTO),  this.httpOptions);
+  createTask(taskDTO: TaskDTO, flag : boolean) {
+    return this.httpClient.post(this.baseUrl + 'task/'+ flag, JSON.stringify(taskDTO),  this.httpOptions);
   }
 
-  updateTask(taskDTO: TaskDTO) {
-    return this.httpClient.put(this.baseUrl+ 'task/',JSON.stringify(taskDTO) , this.httpOptions)
-
+  updateTask(taskDTO: TaskDTO, flag : boolean) {
+    return this.httpClient.put(this.baseUrl+ 'task/' + flag,JSON.stringify(taskDTO), this.httpOptions)
   }
 
-  deleteTask(id: string) {
-    return this.httpClient.delete(this.baseUrl + 'task/' + id, this.httpOptions);
+  endTask(id: string) {
+    return this.httpClient.put(this.baseUrl + 'task/endTask/' + id, this.httpOptions);
   }
 
 }

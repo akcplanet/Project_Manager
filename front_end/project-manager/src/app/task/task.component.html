@@ -68,7 +68,7 @@
 		
 		<div class="row" style="margin-bottom: 10px;"></div>
 		<div class="col-sm-12 btn-toolbar  " style="justify-content: center; display: flex;">
-			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()">Add Task</span>
+			<span type="button" class="btn btn-primary border-zero " (click)="onAddTask()"> {{(taskAdd.taskId ==null)  ? 'Add Task' : 'Update Task'}}</span>
 			<span type="button" class="btn btn-primary border-zero"(click)="onTaskReset()">Reset</span>
 		</div>
 		<div class="row" style="margin-bottom: 10px;"></div>
