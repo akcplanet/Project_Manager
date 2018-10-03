@@ -69,9 +69,9 @@ public class ProjectController {
 	}
 
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<?> deleteProject(@PathVariable(value = "id") String projectId) {
+	public @ResponseBody ResponseEntity<?> suspendProject(@PathVariable(value = "id") String projectId) {
 		logger.info("Logging in @RestController deleteProject  method for projectId: " + projectId);
-		projectService.deleteProject(projectId);
+		projectService.suspendProject(projectId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 

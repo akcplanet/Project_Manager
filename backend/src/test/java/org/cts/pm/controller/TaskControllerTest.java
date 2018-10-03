@@ -17,6 +17,7 @@ import java.util.Optional;
 import org.cts.pm.entity.ParentTask;
 import org.cts.pm.entity.Project;
 import org.cts.pm.entity.Task;
+import org.cts.pm.entity.TaskStatus;
 import org.cts.pm.repository.ParentTaskRepository;
 import org.cts.pm.repository.ProjectRepository;
 import org.cts.pm.repository.TaskRepository;
@@ -70,7 +71,7 @@ public class TaskControllerTest {
 			Optional<ParentTask> task = this.parentRepositoryMock
 					.findById((String) this.entityManager.persistAndGetId(new ParentTask("Parent Test H2 Task")));
 			this.entityManager.persistAndGetId(new Task(project.get(), task.get(), "TASK1 for H2 Testing", new Date(),
-					new Date(), 10, "COMPLETED"));
+					new Date(), 10, TaskStatus.COMPLETED));
 			this.mockMvc
 					.perform(get("/task").content("{\"task\":\"TASK1 for H2 Testing\"}")
 							.contentType(MediaType.APPLICATION_JSON))
@@ -88,7 +89,7 @@ public class TaskControllerTest {
 			Optional<ParentTask> task = this.parentRepositoryMock
 					.findById((String) this.entityManager.persistAndGetId(new ParentTask("Parent Test H2 Task")));
 			String taskID = (String) this.entityManager.persistAndGetId(new Task(project.get(), task.get(),
-					"ID TASK1 for H2 Testing", new Date(), new Date(), 20, "COMPLETED"));
+					"ID TASK1 for H2 Testing", new Date(), new Date(), 20, TaskStatus.COMPLETED));
 			this.mockMvc
 					.perform(get("/task/{id}", taskID).content("{\"task\":\"ID TASK1 for H2 Testing\"}")
 							.contentType(MediaType.APPLICATION_JSON))
@@ -106,7 +107,7 @@ public class TaskControllerTest {
 			Optional<ParentTask> task = this.parentRepositoryMock
 					.findById((String) this.entityManager.persistAndGetId(new ParentTask("Parent Test H2 Task")));
 			String taskID = (String) this.entityManager.persistAndGetId(new Task(project.get(), task.get(),
-					"ADD TASK1 for H2 Testing", new Date(), new Date(), 21, "COMPLETED"));
+					"ADD TASK1 for H2 Testing", new Date(), new Date(), 21, TaskStatus.INPROGRESS));
 			this.mockMvc
 					.perform(post("/task").content("{\"task\":\"ADD TASK1 for H2 Testing\"}")
 							.contentType(MediaType.APPLICATION_JSON))
@@ -124,7 +125,7 @@ public class TaskControllerTest {
 			Optional<ParentTask> task = this.parentRepositoryMock
 					.findById((String) this.entityManager.persistAndGetId(new ParentTask("Parent Test H2 Task")));
 			String taskID = (String) this.entityManager.persistAndGetId(new Task(project.get(), task.get(),
-					"TASK1 for H2 Testing", new Date(), new Date(), 9, "COMPLETED"));
+					"TASK1 for H2 Testing", new Date(), new Date(), 9, TaskStatus.INPROGRESS));
 			Optional<Task> actual = this.taskRepositoryMock.findById(taskID);
 			actual.get().setTask("TASK Updated  for H2 Testing");
 			this.taskRepositoryMock.saveAndFlush(actual.get());
@@ -145,7 +146,7 @@ public class TaskControllerTest {
 			Optional<ParentTask> task = this.parentRepositoryMock
 					.findById((String) this.entityManager.persistAndGetId(new ParentTask("Parent Test H2 Task")));
 			String taskID = (String) this.entityManager.persistAndGetId(new Task(project.get(), task.get(),
-					"TASK1 for H2 Testing", new Date(), new Date(), 10, "COMPLETED"));
+					"TASK1 for H2 Testing", new Date(), new Date(), 10, TaskStatus.INPROGRESS));
 			this.taskRepositoryMock.deleteById(taskID);
 			this.mockMvc.perform(delete("/task/{id}", taskID).contentType(MediaType.APPLICATION_JSON))
 					.andExpect(status().isOk());

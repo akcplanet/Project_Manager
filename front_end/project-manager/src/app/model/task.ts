@@ -1,5 +1,6 @@
 export class TaskDTO {
   constructor(
+    taskId: string,
     task: string ,
     startDate: string,
     endDate: string,

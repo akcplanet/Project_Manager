@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
    `
       <ul>
           <li><a routerLink="project" routerLinkActive="active">Add Project</a></li>
-          <li><a routerLink="task" routerLinkActive="active">Add Task</a></li>
+          <li><a routerLink="task/:editTask" routerLinkActive="active">Add Task</a></li>
           <li><a routerLink="user" routerLinkActive="active">Add User</a></li>
           <li><a routerLink="taskView" routerLinkActive="active">View Task</a></li>
       </ul>

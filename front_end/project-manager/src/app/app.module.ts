@@ -22,7 +22,7 @@ import { ViewTaskComponent } from './view-task/view-task.component';
      RouterModule.forRoot([
        { path: '', redirectTo: '/project', pathMatch: 'full' },
        { path: 'project', component: ProjectComponent },
-       { path: 'task', component: TaskComponent },
+       { path: 'task/:editTask', component: TaskComponent },
        { path: 'user', component: UserComponent },
        { path: 'taskView', component: ViewTaskComponent}
      ]),
