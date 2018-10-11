@@ -19,7 +19,7 @@ export class ProjectComponent implements OnInit {
 
   userAddmanager: string;
   projectAdd;
-  projectSuspend,
+  projectSuspend;
 
   direction: number;
   
