@@ -19,7 +19,7 @@ export class ProjectComponent implements OnInit {
 
   userAddmanager: string;
   projectAdd;
-  projectSuspend,
+  projectSuspend;
 
   direction: number;
   
@@ -48,7 +48,8 @@ export class ProjectComponent implements OnInit {
   }
 
   onSuspendProject(project: Project): void {
-    this.projectService.suspendProject(project.projectId)
+    this.projectSuspend= project;
+    this.projectService.suspendProject(this.projectSuspend.projectId)
       .subscribe(data => {
       }, error => this.error)
   };

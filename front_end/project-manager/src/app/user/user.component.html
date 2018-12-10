@@ -4,9 +4,9 @@
 		<div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >First Name:</label>
 		    <div class="col-sm-8">
-			<input type="text" class="form-control"  id="firstName"  placeholder="Enter First Name..." name="firstName" [(ngModel)]="userAdd.firstName" required >
+			<input type="text" class="form-control"  id="firstName"  placeholder="Enter First Name..." name="firstName" [(ngModel)]="userAdd.firstName"  #firstName="ngModel" required >
 		</div></div>
-			
+	
 			<div class="input-group col-sm-12">
 				<label  id="basic-addon1" class="col-sm-2 control-label" >Last Name:</label>
 				 <div class="col-sm-8">
